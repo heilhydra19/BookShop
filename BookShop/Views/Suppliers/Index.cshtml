@@ -53,8 +53,8 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { onclick = "return confirm('Bạn có muốn xóa không?');" })
+            @Html.ActionLink("Sửa ", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.Id }, new { onclick = "return confirm('Bạn có muốn xóa không?');" })
         </td>
     </tr>
 }

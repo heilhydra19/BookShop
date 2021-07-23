@@ -56,12 +56,12 @@
                 "dbo.Bills",
                 c => new
                     {
-                        id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         CreateAt = c.DateTime(nullable: false),
                         EmployeeId = c.String(maxLength: 128),
                         CustomerId = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.id)
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.CustomerId)
                 .ForeignKey("dbo.AspNetUsers", t => t.EmployeeId)
                 .Index(t => t.EmployeeId)
@@ -173,7 +173,7 @@
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(maxLength: 50),
-                        PhoneNumber = c.String(maxLength: 15),
+                        PhoneNumber = c.String(maxLength: 10),
                         CreateAt = c.DateTime(nullable: false),
                         Email = c.String(maxLength: 50),
                         Address = c.String(maxLength: 150),

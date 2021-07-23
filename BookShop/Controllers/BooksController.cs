@@ -35,8 +35,9 @@ namespace BookShop.Controllers
             }
             return View(book);
         }
-        [HttpPost]
-        public ActionResult Create([Bind(Include = "Id,Name,CategoryId,PublisherId,AuthorId,Price,Count,Img")] Book book)
+
+        [HttpPost, ActionName("Create")]
+        public ActionResult Create([Bind(Include = "Id,Name,Count,Price,Img,CategoryId,PublisherId,AuthorId")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +71,7 @@ namespace BookShop.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,CategoryId,PublisherId,AuthorId,Price,Count,Img")] Book book)
+        public ActionResult Edit([Bind(Include = "Id,Name,Count,Price,Img,CategoryId,PublisherId,AuthorId")] Book book)
         {
             if (ModelState.IsValid)
             {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
@@ -29,6 +30,7 @@ namespace BookShop.Models
         public DbSet<ImportDetail> ImportDetails { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<Author>(entity =>

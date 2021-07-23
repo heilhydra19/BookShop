@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BookShop.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BookShop.Controllers
 {
@@ -151,10 +152,12 @@ namespace BookShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                ApplicationDbContext context = new ApplicationDbContext();
+                var user = new ApplicationUser { UserName = model.Email, Name = model.Name, Address = model.Address, Phone = model.Phone, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "Employee");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -165,7 +168,9 @@ namespace BookShop.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+
                 AddErrors(result);
+
             }
 
             // If we got this far, something failed, redisplay form

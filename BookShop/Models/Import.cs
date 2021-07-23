@@ -18,6 +18,7 @@ namespace BookShop.Models
         public string EmployeeId { get; set; }
         private DateTime _createdAt = DateTime.Now;
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
+        [Display(Name = "Ngày Tạo")]
         public DateTime CreateAt
         {
             get
@@ -26,7 +27,9 @@ namespace BookShop.Models
             }
             set { _createdAt = value; }
         }
+        [Display(Name = "Nhà cung cấp")]
         public Supplier SupplierNavigation { get; set; }
+        [Display(Name = "Nhân viên lập")]
         public ApplicationUser EmployeeNavigation { get; set; }
         public virtual ICollection<ImportDetail> ImportDetails { get; set; }
     }

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BookShop.Models.Bill>
+@using BookShop.Models
+@{
+    ViewBag.Title = "Index";
+    ApplicationDbContext db = new ApplicationDbContext();
+    var customer = db.Users.Where(u => !u.Name.Contains("Admin")).ToList();
+}
+
+<h2>Index</h2>
+
+<form action="/Bills/Create" method="post">
+    <div class="form-group">
+        <select name="CustomerId" class="form-control-static">
+            @foreach (var item in customer)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <input type="submit" value="Thêm" class="btn btn-primary" />
+    </div>
+</form>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateAt)
+        </th>
+        <th>
+            Khách Hàng
+        </th>
+        <th>
+            Nhân Viên Nhập
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerNavigation.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeNavigation.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                <a href="#">Chi Tiết</a> |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Bạn có muốn xóa không?');" })
+            </td>
+        </tr>
+    }
+
+</table>
