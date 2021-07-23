@@ -1,0 +1,98 @@
+﻿@model IEnumerable<BookShop.Models.Book>
+@using BookShop.Models
+@{
+    ViewBag.Title = "Index";
+    ApplicationDbContext db = new ApplicationDbContext();
+    var author = db.Authors.ToList();
+    var category = db.Categories.ToList();
+    var publisher = db.Publishers.ToList();
+}
+
+<h2>Index</h2>
+
+<form action="/Books/Create" method="post">
+    <div class="form-group">
+        <input type="text" name="Name" />
+        <input type="number" name="Count" />
+        <input type="number" name="Price" />
+        <input type="text" name="Img" />
+        <select name="AuthorId" class="form-control-static">
+            @foreach (var item in author)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <select name="CategoryId" class="form-control-static">
+            @foreach (var item in category)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <select name="PublisherId" class="form-control-static">
+            @foreach (var item in publisher)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <input type="submit" value="Thêm" class="btn btn-primary" />
+    </div>
+</form>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorNavigation.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryNavigation.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PublisherNavigation.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Count)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Img)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorNavigation.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryNavigation.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PublisherNavigation.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { onclick = "return confirm('Bạn có muốn xóa không?');" })
+        </td>
+    </tr>
+}
+
+</table>
