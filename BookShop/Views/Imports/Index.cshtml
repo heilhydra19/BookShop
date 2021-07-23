@@ -1,17 +1,17 @@
-﻿@model IEnumerable<BookShop.Models.Bill>
+﻿@model IEnumerable<BookShop.Models.Import>
 @using BookShop.Models
 @{
     ViewBag.Title = "Index";
     ApplicationDbContext db = new ApplicationDbContext();
-    var customer = db.Users.Where(u => !u.Name.Contains("Admin")).ToList();
+    var supplier = db.Suppliers.ToList();
 }
 
 <h2>Index</h2>
 
-<form action="/Bills/Create" method="post">
+<form action="/Imports/Create" method="post">
     <div class="form-group">
-        <select name="CustomerId" class="form-control-static">
-            @foreach (var item in customer)
+        <select name="SupplierId" class="form-control-static">
+            @foreach (var item in supplier)
             {
                 <option value="@item.Id">@item.Name</option>
             }
@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.CreateAt)
         </th>
         <th>
-            Khách Hàng
+            Nhà Cung Cấp
         </th>
         <th>
             Nhân Viên Xuất
@@ -40,14 +40,14 @@
                 @Html.DisplayFor(modelItem => item.CreateAt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustomerNavigation.Name)
+                @Html.DisplayFor(modelItem => item.SupplierNavigation.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EmployeeNavigation.Name)
             </td>
             <td>
                 @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
-                <a href="@Url.Action("Index", "BillDetails", new { id = item.Id })">Chi Tiết</a> |
+                <a href="@Url.Action("Index", "ImportDetails", new { id = item.Id })">Chi Tiết</a> |
                 @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { onclick = "return confirm('Bạn có muốn xóa không?');" })
             </td>
         </tr>
