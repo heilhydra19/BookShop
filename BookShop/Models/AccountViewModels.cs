@@ -79,6 +79,7 @@ namespace BookShop.Models
         [Phone]
         [Display(Name = "Phone")]
         public string Phone { get; set; }
+        public string Img { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "Mật khẩu phải trên 6 kí tự", MinimumLength = 6)]
         [DataType(DataType.Password)]

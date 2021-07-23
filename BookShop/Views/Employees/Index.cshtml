@@ -5,7 +5,7 @@
 }
 
 <h2>Index</h2>
-<form action="/Customers/Create" method="post">
+<form action="/Employees/Create" method="post">
     <div class="form-group">
         <input type="text" name="Email" />
         <input type="text" name="Name" />
@@ -35,28 +35,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.ActionLink("Chi Tiết", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.Id }, new { onclick = "return confirm('Bạn có muốn xóa không?');" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Img)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.ActionLink("Chi Tiết", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { onclick = "return confirm('Bạn có muốn xóa không?');" })
+            </td>
+        </tr>
+    }
 
 </table>

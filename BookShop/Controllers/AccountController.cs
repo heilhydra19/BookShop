@@ -153,7 +153,7 @@ namespace BookShop.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationDbContext context = new ApplicationDbContext();
-                var user = new ApplicationUser { UserName = model.Email, Name = model.Name, Address = model.Address, Phone = model.Phone, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Name = model.Name, Address = model.Address, Phone = model.Phone, Email = model.Email, Img = model.Img };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

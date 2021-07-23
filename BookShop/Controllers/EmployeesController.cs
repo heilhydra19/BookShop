@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -12,15 +10,15 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace BookShop.Controllers
 {
-    public class CustomersController : Controller
+    public class EmployeesController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUserManager _userManager;
-        public CustomersController()
+        public EmployeesController()
         {
         }
 
-        public CustomersController(ApplicationUserManager userManager)
+        public EmployeesController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
         }
@@ -38,9 +36,10 @@ namespace BookShop.Controllers
         }
         public ActionResult Index()
         {
-            return View(db.Users.Where(u => u.Roles.Any(r => r.RoleId == db.Roles.FirstOrDefault(p => p.Name.ToString() == "Customer").Id)).ToList());
+            return View(db.Users.Where(u => u.Roles.Any(r => r.RoleId == db.Roles.FirstOrDefault(p => p.Name.ToString() == "Employee").Id)).ToList());
         }
 
+        // GET: Employees/Details/5
         public ActionResult Details(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -56,21 +55,22 @@ namespace BookShop.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(ApplicationUser customer)
+        public async Task<ActionResult> Create(ApplicationUser employee)
         {
             if (ModelState.IsValid)
             {
-                RegisterViewModel model = new RegisterViewModel { Email = customer.Email, Name = customer.Name, Address = customer.Address, Phone = customer.Phone, Password = customer.PasswordHash, ConfirmPassword = customer.PasswordHash };
-                customer = new ApplicationUser { UserName = model.Email, Name = model.Name, Address = model.Address, Phone = model.Phone, Email = model.Email };
-                var result = await UserManager.CreateAsync(customer, model.Password);
+                RegisterViewModel model = new RegisterViewModel { Email = employee.Email, Name = employee.Name, Address = employee.Address, Phone = employee.Phone, Password = employee.PasswordHash, ConfirmPassword = employee.PasswordHash };
+                employee = new ApplicationUser { UserName = model.Email, Name = model.Name, Address = model.Address, Phone = model.Phone, Email = model.Email };
+                var result = await UserManager.CreateAsync(employee, model.Password);
                 if (result.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(customer.Id, "Customer");
+                    await UserManager.AddToRoleAsync(employee.Id, "Employee");
                 }
             }
             return RedirectToAction("Index");
         }
 
+        // GET: Employees/Delete/5
         public ActionResult Delete(string id)
         {
             ApplicationUser customer = db.Users.Find(id);
@@ -78,6 +78,7 @@ namespace BookShop.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
