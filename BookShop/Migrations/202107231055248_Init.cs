@@ -75,6 +75,7 @@
                         Name = c.String(),
                         Address = c.String(),
                         Phone = c.String(),
+                        Img = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
